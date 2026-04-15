@@ -10,7 +10,9 @@ A simple iOS weather application built with UIKit that displays current weather 
 
 ## Screenshots
 
-![Weather App Demo](weather-app.mp4)
+| 1.png | 2.png | 3.png |
+|-------|-------|-------|
+| ![Screenshot 1](screenshots/1.png) | ![Screenshot 2](screenshots/2.png) | ![Screenshot 3](screenshots/3.png) |
 
 ## Requirements
 
