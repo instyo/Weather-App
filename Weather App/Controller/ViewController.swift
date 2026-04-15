@@ -28,6 +28,7 @@ class ViewController: UIViewController {
     
     // Triggers a fresh location fetch when the user taps the location button
     @IBAction func onTapLocation(_ sender: UIButton) {
+        searchCityField.text = ""
         handleAuthorizationStatus(locationManager.authorizationStatus)
     }
     
@@ -42,6 +43,34 @@ class ViewController: UIViewController {
         searchCityField.delegate = self
         weatherManager.delegate = self
         setupLocationManager()
+        setupKeyboardListener()
+    }
+    
+    deinit {
+        disposeKeyboardListener()
+    }
+    
+    func setupKeyboardListener() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
+    
+    func disposeKeyboardListener() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
+    
+    @objc func keyboardWillChange(notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let frameEnd = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+            return
+        }
+
+        let keyboardHeight = UIScreen.main.bounds.height - frameEnd.origin.y
+
+        view.frame.origin.y = keyboardHeight > 0 ? -keyboardHeight : 0
     }
     
     func setupLocationManager() {
@@ -84,15 +113,11 @@ extension ViewController: CLLocationManagerDelegate {
         handleAuthorizationStatus(manager.authorizationStatus)
     }
     
-    func locationManager(_ manager: CLLocationManager,
-                         didChangeAuthorization status: CLAuthorizationStatus) {
-        handleAuthorizationStatus(status)
-    }
-    
-    // ✅ Required by requestLocation()
+    // Required by requestLocation()
     func locationManager(_ manager: CLLocationManager,
                          didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
+        locationManager.stopUpdatingLocation()
         let lat = location.coordinate.latitude
         let lon = location.coordinate.longitude
         Task {
@@ -100,7 +125,6 @@ extension ViewController: CLLocationManagerDelegate {
         }
     }
     
-    // ✅ Also required by requestLocation()
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         showAlert(title: "Location Error", message: error.localizedDescription)
     }
