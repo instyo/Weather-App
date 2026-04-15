@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>OPEN_WEATHER_API_KEY</key>
+	<string>b26e5c03c93901b90b1c9432400bd829</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string> need your location to show the current weather.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
