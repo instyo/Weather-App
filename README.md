@@ -12,7 +12,7 @@ A simple iOS weather application built with UIKit that displays current weather 
 
 | 1.png | 2.png | 3.png |
 |-------|-------|-------|
-| ![Screenshot 1](screenshots/1.png) | ![Screenshot 2](screenshots/2.png) | ![Screenshot 3](screenshots/3.png) |
+| ![Screenshot 1](https://raw.githubusercontent.com/instyo/Weather-App/refs/heads/main/Screenshots/1.png) | ![Screenshot 2](https://raw.githubusercontent.com/instyo/Weather-App/refs/heads/main/Screenshots/2.png) | ![Screenshot 3](https://raw.githubusercontent.com/instyo/Weather-App/refs/heads/main/Screenshots/3.png) |
 
 ## Requirements
 
@@ -39,7 +39,7 @@ The app follows a simple MVC (Model-View-Controller) pattern:
 
 ## API
 
-This app uses a weather API to fetch weather data. You may need to obtain an API key and update the `WeatherManager.swift` file with your credentials.
+This app uses a weather API to fetch weather data. You may need to obtain an API key and update the `OPEN_WEATHER_API_KEY` on Info.plist file with your credentials.
 
 ## License
 
